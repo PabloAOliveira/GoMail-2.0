@@ -19,4 +19,3 @@ COPY --from=builder /app/.env .env
 
 EXPOSE 2000
 CMD ["./email-service"]
-

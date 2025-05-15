@@ -11,10 +11,14 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
-
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - email-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -35,12 +39,35 @@ services:
     networks:
       - email-network
 
+  migrate:
+    image: migrate/migrate
+    container_name: migrate
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:postgres@postgres:5432/email_service?sslmode=disable",
+        "up",
+      ]
+    volumes:
+      - ./migrations:/migrations
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - email-network
+
   email-service:
     build: .
     container_name: email-service
     depends_on:
-      - postgres
-      - rabbitmq
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     ports:
       - "2000:2000"
     environment:
@@ -60,7 +87,7 @@ services:
 
 volumes:
   rabbitmq_data:
-  # postgres_data:
+  postgres_data:
 
 networks:
   email-network:
