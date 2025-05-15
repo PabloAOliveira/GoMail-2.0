@@ -1,32 +1,42 @@
-**GoMail — API de Processamento Assíncrono com Mensageria**
-
-GoMail é uma API feita em Go para envio de e-mails de forma assíncrona, utilizando RabbitMQ como sistema de mensageria. O projeto está totalmente containerizado com Docker e possui um consumidor que escuta a fila e dispara os e-mails conforme as mensagens são processadas.
+📬 GoMail — API de Processamento Assíncrono com Mensageria e Interface Web
+GoMail é uma aplicação completa para envio assíncrono de e-mails, desenvolvida em Go, utilizando RabbitMQ como sistema de mensageria e PostgreSQL como banco de dados para persistência. Todo o sistema é containerizado com Docker, e inclui tanto a API backend quanto uma interface frontend feita com Vue 3 e Vuetify 3.
 
 🚀 Funcionalidades
-- Enfileiramento de tarefas de envio de e-mail via RabbitMQ
+✅ Enfileiramento de tarefas de envio de e-mails via RabbitMQ
 
-- Processamento assíncrono através de um worker consumidor
+⚙️ Processamento assíncrono através de um worker que escuta a fila
 
-- Envio de e-mails reais via SMTP
+📬 Envio de e-mails reais via SMTP
 
-- Organização em múltiplos serviços com Docker
+🧾 Persistência no PostgreSQL dos e-mails enviados e seus respectivos status (sucesso, erro, pendente etc.)
 
-- Estrutura limpa, escalável e simples de manter
+🌐 Interface web com Vue 3 + Vuetify 3 para visualização e controle dos e-mails
 
-🧰 Tecnologias Utilizadas
-Go  – linguagem principal da API e do worker
+🔎 Rotas disponíveis na API:
 
-Gin Gonic – framework web leve para a API
+POST /send – Enfileira novo e-mail
+
+GET /get-id/:id – Retorna o status de um e-mail específico
+
+GET /get-all – Lista todos os e-mails registrados
+
+📦 Tecnologias Utilizadas
+Go – linguagem principal da API e do worker
+
+Gin Gonic – framework web para criação da API
 
 RabbitMQ – mensageria para enfileiramento assíncrono
 
-Docker & Docker Compose – conteinerização dos serviços
+PostgreSQL – banco de dados para persistência dos e-mails
 
-AMQP – biblioteca github.com/streadway/amqp para conexão com o RabbitMQ
+Docker & Docker Compose – conteinerização de todos os serviços
+
+AMQP – biblioteca github.com/streadway/amqp para RabbitMQ
 
 SMTP – envio real de e-mails
 
-dotenv – carregamento de variáveis de ambiente (github.com/joho/godotenv)
+dotenv – carregamento de variáveis de ambiente
 
-Makefile – comandos simplificados para build e execução
+Makefile – automação de comandos de build e execução
 
+Vue 3 + Vuetify 3 – interface web moderna e responsiva
