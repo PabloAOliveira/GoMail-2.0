@@ -44,4 +44,4 @@ GoMail é uma aplicação completa para envio assíncrono de e-mails, desenvolvi
 
 - Pablo Antonio De Oliveira 1134335
 - Gabriela Lenz 1134940
-- Patricia Lima Massolini
+- Patricia Lima Massolini 1136999
