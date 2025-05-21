@@ -41,3 +41,7 @@ GoMail é uma aplicação completa para envio assíncrono de e-mails, desenvolvi
 - Makefile – automação de comandos de build e execução
 
 - Vue 3 + Vuetify 3 – interface web moderna e responsiva
+
+- Pablo Antonio De Oliveira 1134335
+- Gabriela Lenz 1134940
+- Patricia Lima Massolini
