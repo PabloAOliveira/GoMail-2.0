@@ -78,6 +78,15 @@ func GetEmailByID(id int) (models.EmailTask, error) {
 	return task, nil
 }
 
+func DeleteEmail(id int) error {
+    query := `DELETE FROM emails WHERE id = $1`
+    _, err := DB.Exec(query, id)
+    if err != nil {
+        return fmt.Errorf("erro ao deletar email: %v", err)
+    }
+    return nil
+}
+
 func GetAllEmails() ([]models.EmailTask, error) {
 	query := `SELECT id, to_email, subject, body, status, created_at, updated_at FROM emails`
 	rows, err := DB.Query(query)
