@@ -54,6 +54,25 @@ func main() {
 		})
 	})
 
+	router.DELETE("/email/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		var emailID int
+		_, err := fmt.Sscanf(id, "%d", &emailID)
+		if err != nil || emailID <= 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+			return
+		}
+		
+		err = database.DeleteEmail(emailID)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao deletar email"})
+			return
+		}
+		
+		c.JSON(http.StatusOK, gin.H{"message": "Email deletado com sucesso!"})
+	})
+		
+
 	router.GET("/emails", func(c *gin.Context) {
 		emails, err := database.GetAllEmails()
 		if err != nil {
